@@ -3,6 +3,7 @@
 from flask import request, make_response, session
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
+from models import Card, KeywordMap, ColorMap
 
 from config import app, db, api
 
