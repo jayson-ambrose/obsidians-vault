@@ -5,6 +5,37 @@ from sqlalchemy.ext.hybrid import hybrid_property
 
 from config import db, bcrypt
 
+class User(db.Model, SerializerMixin):
+    __tablename__ = 'users'
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    username = db.Column(db.String, nullable=False)
+    _password = db.Column(db.String, nullable=False)
+    admin = db.Column(db.Boolean)
+
+    collected_cards = db.relationship('CollectedCard', backref='user')
+
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+
+class CollectedCard(db.Model, SerializerMixin):
+    __tablename__ = 'collected_cards'
+
+    id = db.Column(db.Integer, primary_key=True)
+    quantity = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    card_id = db.Column(db.Integer, db.ForeignKey('cards.id'))
+
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+
+class Deck(db.Model, SerializerMixin):
+    __tablename__ = 'decks'
+
+    id = db.Column(db.Integer, primary_key=True)
+
+
 class Card(db.Model, SerializerMixin):
     __tablename__ = 'cards'
 
@@ -17,8 +48,10 @@ class Card(db.Model, SerializerMixin):
     img_url = db.Column(db.String)
     text = db.Column(db.Text)
 
-    keyword_map = db.relationship('KeywordMap', uselist= False, backref='card', cascade='all, delete-orphan')
-    color_map = db.relationship('ColorMap', uselist= False, backref='card', cascade='all, delete-orphan')
+    keyword_map = db.relationship('KeywordMap', uselist=False, backref='card', cascade='all, delete-orphan')
+    color_map = db.relationship('ColorMap', uselist=False, backref='card', cascade='all, delete-orphan')
+
+    # collected_cards = db.relationship('CollectedCard', backref='card')
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
