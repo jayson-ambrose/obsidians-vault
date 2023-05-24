@@ -14,9 +14,9 @@ function Library () {
         .then(data => setCards(data))
     }, [])
 
-    const displayCards = cards.filter((card) => card.name.toLowerCase().includes(filter.toLowerCase())).map((card) =>  <CardDisplay key={card.id} card={card} /> )
-
-    
+    const displayCards = cards.filter((card) => card.name.toLowerCase()
+        .includes(filter.toLowerCase()))
+        .map((card) =>  <CardDisplay key={card.id} card={card} /> )    
     
     const handleSetFilter = (value) => {
         setFilter(value)

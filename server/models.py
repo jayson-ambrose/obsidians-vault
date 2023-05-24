@@ -8,16 +8,31 @@ from config import db, bcrypt
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
+    serialize_rules = ('-collected_cards.user', 'cards')
+
     id = db.Column(db.Integer, primary_key=True)
 
-    username = db.Column(db.String, nullable=False)
+    username = db.Column(db.String, nullable=False, unique=True)
     _password = db.Column(db.String, nullable=False)
     admin = db.Column(db.Boolean)
 
     collected_cards = db.relationship('CollectedCard', backref='user')
+    cards = association_proxy('collected_cards', 'card')
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+
+    @hybrid_property
+    def password(self):
+        return self._password
+    
+    @password.setter
+    def password(self, password):
+        password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+        self._password = password_hash
+
+    def auth(self, password):
+        return bcrypt.check_password_hash(self.password, password)
 
 class CollectedCard(db.Model, SerializerMixin):
     __tablename__ = 'collected_cards'
@@ -39,7 +54,9 @@ class Deck(db.Model, SerializerMixin):
 class Card(db.Model, SerializerMixin):
     __tablename__ = 'cards'
 
-    serialize_rules = ('-created_at', '-updated_at')
+    serialize_rules = ('-created_at', '-updated_at', '-keyword_map.card_id',
+                       '-keyword_map.id', '-color_map.card_id', '-color_map.id',
+                       '-collected_cards')
 
     id = db.Column(db.Integer, primary_key=True)
 
@@ -51,7 +68,7 @@ class Card(db.Model, SerializerMixin):
     keyword_map = db.relationship('KeywordMap', uselist=False, backref='card', cascade='all, delete-orphan')
     color_map = db.relationship('ColorMap', uselist=False, backref='card', cascade='all, delete-orphan')
 
-    # collected_cards = db.relationship('CollectedCard', backref='card')
+    collected_cards = db.relationship('CollectedCard', backref='card')
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())

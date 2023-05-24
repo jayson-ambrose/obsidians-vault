@@ -4,6 +4,7 @@ import Login from './components/Login'
 import Discover from './components/Discover';
 import Rules from './components/Rules'
 import Library from './components/Library';
+import AdminPanel from './components/AdminPanel';
 import { Switch, Route } from 'react-router-dom'
 
 
@@ -12,7 +13,6 @@ function App() {
     <div>
       <h2>Obsidian's Vault</h2>
       <Nav/>
-
       <Switch>
         <Route exact path='/login'>
           <Login />
@@ -25,6 +25,9 @@ function App() {
         </Route>
         <Route exact path='/library'>
           <Library />
+        </Route>
+        <Route exact path='/admin'>
+          <AdminPanel />
         </Route>
       </Switch>
     </div>

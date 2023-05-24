@@ -9,7 +9,7 @@ from faker import Faker
 
 # Local imports
 from app import app
-from models import db, Card, KeywordMap, ColorMap
+from models import db, Card, KeywordMap, ColorMap, CollectedCard, User
 
 if __name__ == '__main__':
     fake = Faker()
@@ -20,6 +20,8 @@ if __name__ == '__main__':
         Card.query.delete()
         KeywordMap.query.delete()
         ColorMap.query.delete()
+        User.query.delete()
+        CollectedCard.query.delete()
 
         db.session.commit()
         
@@ -58,4 +60,20 @@ if __name__ == '__main__':
         c3.buildKeyWordMap(n_collect=True, n_discarded=True)
         c3.buildColorMap()
 
+        print('generating test accounts...')
+
+        u1 = User(username='admin', password='password', admin=True)        
+        u3 = User (username='u', password='u', admin=False)
+
+        db.session.add_all([u1, u3])
+        db.session.commit()
+
+        print('generating test collection...')
+
+        col1 = CollectedCard(quantity=1, user_id=1, card_id=1)
+
+        db.session.add(col1)
+        db.session.commit()
+
         print("Seed complete.")
+

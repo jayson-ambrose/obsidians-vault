@@ -1,7 +1,7 @@
 import React from 'react'
 import '../styles/App.css'
 
-function Boiler () {
+function AdminPanel () {
     
     return(
         <div>
@@ -11,4 +11,4 @@ function Boiler () {
     )
 }
 
-export default Boiler
+export default AdminPanel
