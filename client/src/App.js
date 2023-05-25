@@ -1,4 +1,4 @@
-import './styles/App.css';
+import React, { useState } from 'react'
 import Nav from './components/Nav'
 import Login from './components/Login'
 import Discover from './components/Discover';
@@ -8,10 +8,13 @@ import AdminPanel from './components/AdminPanel';
 import { Switch, Route } from 'react-router-dom'
 
 
-function App() {
+function App() { 
+
   return (
-    <div>
-      <h2>Obsidian's Vault</h2>
+    <div className='siteContainer'>
+      <div className='banner'>
+        <img  src='https://cdn.imgchest.com/files/6yxkcz6v997.png'/>
+      </div>
       <Nav/>
       <Switch>
         <Route exact path='/login'>

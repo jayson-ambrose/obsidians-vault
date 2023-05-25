@@ -1,26 +1,33 @@
-.nav {
-    display: flex;
-    margin-left:auto;
-    margin-right:auto;
-    width: 800px;
-    flex-direction: horizontal;
-    justify-content: space-around;
-    cursor: pointer;
+@import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300&display=swap');
+
+body {
+    background-color: #444444;
+    color: white;
+    font-family: 'Averia Serif Libre', cursive;
 }
 
-.nav > :hover { 
-    color: blue;
-    font-weight: bold;
+.ui {
+    font-family: 'Averia Serif Libre', cursive !important;
 }
 
-.nav > a{
-    text-decoration: none;
-    color:rgb(0, 0, 0);
-  }
+h2 {
+    font-family: 'Averia Serif Libre', cursive;
+}
 
 .stacked {
     display: flex;
     flex-direction: column;
+}
+
+.banner {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding-bottom: 5px;
+}
+
+.banner > img{
+    width: 800px;
 }
 
 .content {
@@ -32,6 +39,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  padding-top: 10px;
 }
 
 .cardThumb {
@@ -51,4 +59,5 @@
     margin-right:auto;
     flex-direction: column;
 }
+
 
