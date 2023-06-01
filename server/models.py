@@ -8,7 +8,7 @@ from config import db, bcrypt
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
-    serialize_rules = ('-collected_cards.user', 'cards')
+    serialize_rules = ('-collected_cards.user', 'cards', '-_password')
 
     id = db.Column(db.Integer, primary_key=True)
 

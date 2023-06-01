@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
-import '../styles/App.css'
 import { Modal, Button, Header, Input, Form } from 'semantic-ui-react'
+
+import { useRecoilState, useSetRecoilState } from 'recoil'
+import { loggedInAtom } from './lib/atoms'
+import { activeAccountAtom } from './lib/atoms'
 
 function Login () {  
 
@@ -8,9 +11,45 @@ function Login () {
     const [userText, setUserText] = useState('')
     const [passText, setPassText] = useState('')
 
+    const [loggedIn, setLoggedIn] = useRecoilState(loggedInAtom)
+    const setActiveAccount = useSetRecoilState(activeAccountAtom)
+
     const handleLogin = (e) => {
         e.preventDefault()
+
+        const credentials = {username: userText, password: passText}
+
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(credentials)
+        })
+        .then(resp => {
+            if(resp.ok) {
+                resp.json().then(data => {
+                    setActiveAccount(data)
+                    setLoggedIn(true)
+                })
+            } else {
+                console.log(resp)
+            }
+        })
+
         setLoginOpen(false)
+    }
+
+    const handleLogout = () => {
+        fetch('/logout', {
+            method: 'DELETE'
+        })
+        .then(resp => {
+            if (resp.ok) {
+                setLoggedIn(false)
+                setActiveAccount(null)
+            }
+        })
     }
 
     const handleUserText = (e) => {
@@ -23,24 +62,29 @@ function Login () {
 
     return(
         <div>
+            { loggedIn ? 
+            <Button onClick={() => handleLogout()}>Logout</Button> :
             <Modal
+                basic
+                className='myModal'
                 onClose={() => setLoginOpen(false)}
                 onOpen={() => setLoginOpen(true)}
                 open={loginOpen}
-                trigger={<Button inverted color='yellow'>Login / Create Account</Button>}
+                trigger={<Button inverted color='yellow'>Login</Button>}                
             >
                 <Modal.Header>Login</Modal.Header>
                 <Modal.Content>
-                    <div className='stacked'>
-                        <Form id='loginEntry' onSubmit={(e) => handleLogin(e)}>
+                    <Form id='loginEntry' onSubmit={(e) => handleLogin(e)}>
+                        <div className='stacked'>
                             <Input type='text' placeholder='Username' onChange={(e) => handleUserText(e)} value={userText}/>
                             <Input type='password' placeholder='Password' onChange={(e) => handlePassText(e)} value={passText}/>
-                            <Button secondary type='submit'> Login </Button>                
-                        </Form>
-                        <p>Create Account</p>
-                    </div>   
+                        </div>
+                        <div className='stacked'>
+                            <Button className='loginButton' inverted color='yellow' type='submit'> Login </Button>
+                        </div>                
+                    </Form>
                 </Modal.Content>
-            </Modal>
+            </Modal>}
         </div>       
     )
 }

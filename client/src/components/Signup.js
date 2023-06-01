@@ -1,7 +1,7 @@
 import React from 'react'
 import '../styles/App.css'
 
-function Boiler () {
+function Signup () {
     
     return(
         <div className='content'>
@@ -11,4 +11,4 @@ function Boiler () {
     )
 }
 
-export default Boiler
+export default Signup

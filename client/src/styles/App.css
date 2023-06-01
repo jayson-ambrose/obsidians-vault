@@ -14,9 +14,26 @@ h2 {
     font-family: 'Averia Serif Libre', cursive;
 }
 
+.ui.menu.nav {
+    background-color: #2e2e2e;
+}
+
+.ui.modal.myModal {
+    display: flex;
+    background-color: #2e2e2e;
+    justify-content: center;
+    align-content: center;
+}
+
+.ui.button.loginButton {
+    align-self: center;
+    width: 200px
+}
+
 .stacked {
     display: flex;
     flex-direction: column;
+    width: 300px
 }
 
 .banner {
@@ -50,6 +67,10 @@ h2 {
 .thumbContainer {
     display: flex;
     justify-content: space-around;
+}
+
+.dividerTest {
+    position: relative;
 }
 
 #loginEntry {

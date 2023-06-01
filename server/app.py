@@ -7,6 +7,8 @@ from models import Card, KeywordMap, ColorMap, User
 
 from config import app, db, api
 
+app.secret_key = 'j2s4o95KA6teyPY17iUoeTBnAteyS2Pafddyhj3fDRN3oVQ2daf'
+
 class Login(Resource):
 
     def post(self):
@@ -22,7 +24,15 @@ class Login(Resource):
         
         except:
             return make_response( {'error': '401 user not found'}, 404)
+        
+class Logout(Resource):
+    def delete(self):
+        session['user_id'] = None
+        return make_response({}, 204)
 
+class CheckSession(Resource):
+    def get(self):
+        user = User.query.filter(User.id == session.get('user_id')).first()
 
 class Users(Resource):
 
@@ -53,6 +63,8 @@ class Cards(Resource):
 api.add_resource(Cards, '/cards')
 api.add_resource(Users, '/users')
 api.add_resource(UsersById, '/users/<int:id>')
+api.add_resource(Login, '/login')
+api.add_resource(Logout, '/logout')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
