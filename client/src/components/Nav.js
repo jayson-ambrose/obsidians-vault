@@ -70,7 +70,7 @@ function Nav () {
                     <Menu.Item 
                         as={ Link }
                         to='/account'
-                        name={`${activeAccount?.username}`}
+                        content={`${activeAccount?.username}`}
                         active={activeItem === `${activeAccount?.username}`}
                         onClick={handleItemClick}/> :
                     <Menu.Item

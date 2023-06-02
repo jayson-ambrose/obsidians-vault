@@ -26,6 +26,7 @@ h2 {
 }
 
 .ui.button.loginButton {
+    margin-top:5px;
     align-self: center;
     width: 200px
 }
@@ -70,7 +71,17 @@ h2 {
 }
 
 .dividerTest {
+    display: flex;
+    flex-direction: horizontal;
     position: relative;
+}
+
+.adminPanelContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 100px;
+    padding-top: 10px;
 }
 
 #loginEntry {
@@ -80,5 +91,6 @@ h2 {
     margin-right:auto;
     flex-direction: column;
 }
+
 
 

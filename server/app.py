@@ -43,6 +43,29 @@ class Users(Resource):
 
         return make_response(user_list, 200)
     
+    def post(self):
+        req_data = request.get_json()
+        if req_data['password'] != req_data['re_password']:
+            return make_response({'error':'401: Passwords do not match.'}, 401)
+        
+        new_user = User(username=req_data.get('username'), 
+                        password=req_data.get('password'), 
+                        admin=False)
+        
+        try:
+
+            db.session.add(new_user)
+            db.session.commit()
+
+            session['user_id'] = new_user.id
+
+            return make_response(new_user.to_dict(), 201)
+        
+        except IntegrityError:
+
+            db.session.rollback()
+            return make_response({'error': '400: Failed to create user account.'})
+    
 class UsersById(Resource):
 
     def get(self, id):

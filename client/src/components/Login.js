@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Modal, Button, Header, Input, Form } from 'semantic-ui-react'
-
+import { useHistory } from 'react-router-dom'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { loggedInAtom } from './lib/atoms'
 import { activeAccountAtom } from './lib/atoms'
@@ -10,6 +10,8 @@ function Login () {
     const [loginOpen, setLoginOpen] = useState(false)
     const [userText, setUserText] = useState('')
     const [passText, setPassText] = useState('')
+
+    const history = useHistory()
 
     const [loggedIn, setLoggedIn] = useRecoilState(loggedInAtom)
     const setActiveAccount = useSetRecoilState(activeAccountAtom)
@@ -29,8 +31,11 @@ function Login () {
         .then(resp => {
             if(resp.ok) {
                 resp.json().then(data => {
+                    setUserText('')
+                    setPassText('')
                     setActiveAccount(data)
                     setLoggedIn(true)
+                    history.push('/library')
                 })
             } else {
                 console.log(resp)
@@ -90,14 +95,3 @@ function Login () {
 }
 
 export default Login
-
-// return(
-//     <div className='stacked'>
-//         <form id='loginEntry' onSubmit={(e) => handleLogin(e)}>
-//             <Input type='text' placeholder='Username'/>
-//             <Input type='text' placeholder='Password'/>
-//             <Button primary type='submit'> Login </Button>                
-//         </form>
-//         <p>Create Account</p>
-//     </div>       
-// )

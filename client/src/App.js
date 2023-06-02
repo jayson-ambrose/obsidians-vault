@@ -7,6 +7,7 @@ import Library from './components/Library';
 import AdminPanel from './components/AdminPanel';
 import Signup from './components/Signup';
 import Account from './components/Account';
+import BrowseDecks from './components/BrowseDecks';
 import { Switch, Route } from 'react-router-dom'
 
 
@@ -39,6 +40,9 @@ function App() {
         </Route>
         <Route exact path='/account'>
           <Account />
+        </Route>
+        <Route exact path='/browse'>
+          <BrowseDecks />
         </Route>
       </Switch>
     </div>
