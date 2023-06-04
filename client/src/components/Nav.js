@@ -67,9 +67,10 @@ function Nav () {
                         active={activeItem === 'Admin Panel'}
                         onClick={handleItemClick}/>: null}
                 {loggedIn ? 
-                    <Menu.Item 
+                    <Menu.Item
                         as={ Link }
                         to='/account'
+                        style={{color: 'yellow'}}
                         content={`${activeAccount?.username}`}
                         active={activeItem === `${activeAccount?.username}`}
                         onClick={handleItemClick}/> :
