@@ -13,9 +13,7 @@ function AccountManager () {
         .then(resp => resp.json())
         .then(data => setUserList(data))
     }, [])
-
-    console.log(userList)
-
+    
     const displayUsers = userList.filter((user) => user.username.toLowerCase()
         .includes(userFilter.toLowerCase()))
         .filter((user) => user.master_account === false)

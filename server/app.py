@@ -50,7 +50,8 @@ class Users(Resource):
         
         new_user = User(username=req_data.get('username'), 
                         password=req_data.get('password'), 
-                        admin=False)
+                        admin=False,
+                        master_account=False)
         
         try:
 
@@ -73,6 +74,17 @@ class UsersById(Resource):
         if user:
             return make_response(user.to_dict(), 200)
         return make_response({'error':'404: user not found'}, 404)
+    
+    def patch(self, id):
+        user = User.query.filter(User.id == id).one_or_none()
+        req_data = request.get_json()
+
+        if user:
+            for key in req_data:
+                setattr(user, key, req_data[key])
+            db.session.add(user)
+            db.session.commit()
+            return make_response(user.to_dict(rules=('-cards', '-collected_cards')), 200)
 
 class Cards(Resource):
     

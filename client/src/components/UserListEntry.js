@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../styles/App.css'
 import { Table, Button, Icon } from 'semantic-ui-react'
 import { activeAccountAtom } from './lib/atoms'
@@ -6,8 +6,23 @@ import { useRecoilValue } from 'recoil'
 
 function UserListEntry ({user}) {
 
-    const activeAccount = useRecoilValue(activeAccountAtom)
-    const {id, username, admin, created_at} = user
+    const activeAccount = useRecoilValue(activeAccountAtom)    
+
+    const [userEntry, setUserEntry] = useState({...user})
+    const {id, username, admin, created_at} = userEntry
+    
+    const toggleAdmin  = () => {
+
+        fetch(`/users/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({admin: !admin})
+        })
+        .then(resp => resp.json())
+        .then(data => setUserEntry({...data}))
+    }
     
     return(
         <Table.Row>
@@ -20,8 +35,14 @@ function UserListEntry ({user}) {
 
             {activeAccount.master_account ? 
                 <Table.Cell>
-                    {admin ? <Button inverted color='red'>Demote</Button> :
-                             <Button inverted color='yellow'>Admin</Button>}
+                    {admin ? <Button 
+                                inverted color='red'
+                                onClick={toggleAdmin}>Demote
+                             </Button> :
+                             <Button 
+                                inverted color='yellow'
+                                onClick={toggleAdmin}>Admin
+                             </Button>}
                 </Table.Cell> : null}
 
             <Table.Cell>
