@@ -62,8 +62,8 @@ if __name__ == '__main__':
 
         print('generating test accounts...')
 
-        u1 = User(username='admin', password='password', admin=True)        
-        u3 = User (username='u', password='u', admin=False)
+        u1 = User(username='admin', password='password', admin=True, master_account=True)        
+        u3 = User (username='u', password='u', admin=False, master_account=False)
 
         db.session.add_all([u1, u3])
         db.session.commit()

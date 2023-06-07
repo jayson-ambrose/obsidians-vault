@@ -1,8 +1,8 @@
 """test
 
-Revision ID: 75434267e228
+Revision ID: 8175e8305e37
 Revises: 
-Create Date: 2023-05-23 20:34:24.296914
+Create Date: 2023-06-06 15:31:53.928838
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '75434267e228'
+revision = '8175e8305e37'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -37,9 +37,11 @@ def upgrade():
     sa.Column('username', sa.String(), nullable=False),
     sa.Column('_password', sa.String(), nullable=False),
     sa.Column('admin', sa.Boolean(), nullable=True),
+    sa.Column('master_account', sa.Boolean(), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('username')
     )
     op.create_table('collected_cards',
     sa.Column('id', sa.Integer(), nullable=False),

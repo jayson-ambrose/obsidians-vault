@@ -15,6 +15,7 @@ class User(db.Model, SerializerMixin):
     username = db.Column(db.String, nullable=False, unique=True)
     _password = db.Column(db.String, nullable=False)
     admin = db.Column(db.Boolean)
+    master_account = db.Column(db.Boolean)
 
     collected_cards = db.relationship('CollectedCard', backref='user')
     cards = association_proxy('collected_cards', 'card')

@@ -72,6 +72,7 @@ function Nav () {
                         to='/account'
                         style={{color: 'yellow'}}
                         content={`${activeAccount?.username}`}
+                        name={`${activeAccount?.username}`}
                         active={activeItem === `${activeAccount?.username}`}
                         onClick={handleItemClick}/> :
                     <Menu.Item
