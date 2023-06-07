@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import '../styles/App.css'
-import { Table } from 'semantic-ui-react'
+import { Table, Input } from 'semantic-ui-react'
 import UserListEntry from './UserListEntry'
 
 function AccountManager () {
 
     const [userList, setUserList] = useState([])
+    const [userFilter, setUserFilter] = useState('')
 
     useEffect(() => {
         fetch('/users')
@@ -15,12 +16,18 @@ function AccountManager () {
 
     console.log(userList)
 
-    const displayUsers = userList.map((user) => <UserListEntry key={user.id} user={user} />)
-    
+    const displayUsers = userList.filter((user) => user.username.toLowerCase()
+        .includes(userFilter.toLowerCase()))
+        .filter((user) => user.master_account === false)
+        .map((user) => <UserListEntry key={user.id} user={user} />)   
 
     return(
         <div className='adminPanelContent'>
             <h2>User Accounts</h2>
+            <Input 
+                placeholder='Username Filter'
+                value={userFilter}
+                onChange={(e) => setUserFilter(e.target.value)}/>
             <Table celled padded inverted>
                 <Table.Header>
                     <Table.Row>
@@ -28,8 +35,7 @@ function AccountManager () {
                         <Table.HeaderCell>Username</Table.HeaderCell>
                         <Table.HeaderCell>Admin Status</Table.HeaderCell>
                         <Table.HeaderCell>Member Since</Table.HeaderCell>
-                        <Table.HeaderCell></Table.HeaderCell>
-                        <Table.HeaderCell></Table.HeaderCell>
+                        <Table.HeaderCell colSpan='3'>Options</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>

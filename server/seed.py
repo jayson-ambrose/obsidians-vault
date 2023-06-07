@@ -62,10 +62,11 @@ if __name__ == '__main__':
 
         print('generating test accounts...')
 
-        u1 = User(username='admin', password='password', admin=True, master_account=True)        
+        u1 = User(username='pvida', password='password', admin=True, master_account=True)        
+        u2 = User(username='a', password='a', admin=True, master_account=False)        
         u3 = User (username='u', password='u', admin=False, master_account=False)
 
-        db.session.add_all([u1, u3])
+        db.session.add_all([u1, u2, u3])
         db.session.commit()
 
         print('generating test collection...')
