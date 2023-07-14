@@ -26,10 +26,10 @@ function Library () {
         <div className='content'>
             <h2>Card Library</h2>
             <FilterBar filterText={filter} filterFunc={handleSetFilter}/>
-            <div className='thumbContainer'>
-                {displayCards}
+            <div className='gallery'>
+                {displayCards}                    
             </div>
-        </div>       
+        </div>     
     )
 }
 

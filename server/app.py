@@ -95,6 +95,42 @@ class Cards(Resource):
 
         return make_response(card_list, 200)
     
+    def post(self):
+        req_data = request.get_json()
+        print(req_data)
+
+        new_card = Card(name=req_data['name'], 
+                        cost=req_data['cost'], 
+                        img_url=req_data['img_url'],
+                        text=req_data['text'])
+        
+        try:
+            db.session.add(new_card)
+            db.session.commit()
+
+            new_card.build_color_map(
+                n_blue=req_data['colors']['blue'],
+                n_red=req_data['colors']['red'],
+                n_green=req_data['colors']['green'],
+                n_purple=req_data['colors']['purple']
+            )
+            new_card.build_key_word_map(
+                n_cancel=req_data['keywords']['cancel'],
+                n_collect=req_data['keywords']['collect'],
+                n_destroy=req_data['keywords']['destroy'],
+                n_discarded=req_data['keywords']['discarded'],
+                n_draw=req_data['keywords']['draw'],
+                n_expansion=req_data['keywords']['expansion'],
+                n_remove=req_data['keywords']['remove'],
+                n_renews=req_data['keywords']['renews']
+            )
+
+            return make_response(new_card.to_dict())
+
+        except:
+            db.session.rollback()
+            return make_response({'error': '401: duplicate card found'}, 401)
+    
 api.add_resource(Cards, '/cards')
 api.add_resource(Users, '/users')
 api.add_resource(UsersById, '/users/<int:id>')

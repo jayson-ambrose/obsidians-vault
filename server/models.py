@@ -74,15 +74,15 @@ class Card(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    def buildKeyWordMap(self,
-                        n_cancel=False, 
-                        n_collect=False, 
-                        n_destroy=False ,
-                        n_discarded=False, 
-                        n_draw=False, 
-                        n_expansion=False, 
-                        n_remove=False, 
-                        n_renews=False):
+    def build_key_word_map(self,
+                           n_cancel=False, 
+                           n_collect=False, 
+                           n_destroy=False ,
+                           n_discarded=False, 
+                           n_draw=False, 
+                           n_expansion=False, 
+                           n_remove=False, 
+                           n_renews=False):
 
         new_map = KeywordMap(cancel=n_cancel, collect=n_collect, destroy=n_destroy,
                              discarded=n_discarded, draw=n_draw, expansion=n_expansion,
@@ -96,11 +96,11 @@ class Card(db.Model, SerializerMixin):
             print('failed to add KeywordMap')
 
 
-    def buildColorMap(self, 
-                      n_red=False, 
-                      n_blue=False, 
-                      n_green=False, 
-                      n_purple=False):
+    def build_color_map (self, 
+                         n_red=False, 
+                         n_blue=False, 
+                         n_green=False, 
+                         n_purple=False):
 
         new_map = ColorMap(red=n_red, blue=n_blue, green=n_green, purple=n_purple, card=self)
         

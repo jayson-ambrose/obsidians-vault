@@ -31,10 +31,15 @@ h2 {
     width: 200px
 }
 
+.ui.checkbox label {
+    color: rgb(255, 255, 255);
+}
+
 .stacked {
     display: flex;
     flex-direction: column;
-    width: 300px
+    width: 300px;
+    padding-bottom: 15px;
 }
 
 .banner {
@@ -52,7 +57,7 @@ h2 {
   display: flex;
   margin-left:auto;
   margin-right:auto;
-  width: 800px;
+  width: 960px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -60,14 +65,20 @@ h2 {
   padding-top: 10px;
 }
 
+.gallery {
+  display: flex;
+  margin-left:auto;
+  margin-right:auto;
+  width: 95%;
+  flex-wrap: wrap;
+  justify-content: center;
+  cursor: pointer;
+  padding-top: 10px;
+}
+
 .cardThumb {
     width: 300px;
     padding: 5px;
-}
-
-.thumbContainer {
-    display: flex;
-    justify-content: space-around;
 }
 
 .dividerTest {
@@ -91,6 +102,8 @@ h2 {
     margin-right:auto;
     flex-direction: column;
 }
+
+
 
 
 

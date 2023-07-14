@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import '../styles/App.css'
 import BuildCard from './BuildCard'
 import AccountManager from './AccountManager'
+import EditCards from './EditCards'
 import { Menu } from 'semantic-ui-react'
 import { loggedInAtom, activeAccountAtom } from './lib/atoms'
 import { useRecoilValue } from 'recoil'
@@ -38,6 +39,12 @@ function AdminPanel () {
                     onClick={handleItemClick}/>
                 <Menu.Item
                     as={ Link }
+                    to='/admin/edit-cards'
+                    name='Edit Cards'
+                    active={activeItem === 'Edit Cards'}
+                    onClick={handleItemClick}/>
+                <Menu.Item
+                    as={ Link }
                     to='/admin/account-manager'
                     name='Account Manager'
                     active={activeItem === 'Account Manager'}
@@ -46,6 +53,9 @@ function AdminPanel () {
             <Switch>
                 <Route exact path='/admin/build-cards'>
                     <BuildCard />
+                </Route>
+                <Route exact path='/admin/edit-cards'>
+                    <EditCards />
                 </Route>
                 <Route exact path='/admin/account-manager'>
                     <AccountManager />

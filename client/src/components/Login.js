@@ -35,7 +35,7 @@ function Login () {
                     setPassText('')
                     setActiveAccount(data)
                     setLoggedIn(true)
-                    history.push('/library')
+                    history.push('/')
                 })
             } else {
                 console.log(resp)

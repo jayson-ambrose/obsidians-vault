@@ -35,8 +35,8 @@ if __name__ == '__main__':
         db.session.add(c1)
         db.session.commit()
 
-        c1.buildKeyWordMap(n_collect=True, n_renews=True)
-        c1.buildColorMap(n_blue=True)
+        c1.build_key_word_map(n_collect=True, n_renews=True)
+        c1.build_color_map(n_blue=True)
 
         c2 = Card(name='All the Shinies', 
                   cost=3, 
@@ -46,8 +46,8 @@ if __name__ == '__main__':
         db.session.add(c2)
         db.session.commit()
 
-        c2.buildKeyWordMap(n_collect=True, n_discarded=True)
-        c2.buildColorMap()
+        c2.build_key_word_map(n_collect=True, n_discarded=True)
+        c2.build_color_map()
 
         c3 = Card(name='A Lost Cause', 
                   cost=3, 
@@ -57,8 +57,8 @@ if __name__ == '__main__':
         db.session.add(c3)
         db.session.commit()
 
-        c3.buildKeyWordMap(n_collect=True, n_discarded=True)
-        c3.buildColorMap()
+        c3.build_key_word_map(n_collect=True, n_discarded=True)
+        c3.build_color_map()
 
         print('generating test accounts...')
 
