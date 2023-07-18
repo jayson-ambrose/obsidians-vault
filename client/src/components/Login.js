@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Modal, Button, Header, Input, Form } from 'semantic-ui-react'
+import { Modal, Button, Input, Form } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { loggedInAtom, activeAccountAtom  } from './lib/atoms'

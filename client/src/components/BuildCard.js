@@ -3,7 +3,7 @@ import '../styles/App.css'
 import CardList from './CardList'
 import { Form, Input, Checkbox, TextArea, Button } from 'semantic-ui-react'
 
-import { FormikContext, useFormik } from 'formik'
+import { useFormik } from 'formik'
 import * as yup from 'yup'
 
 function BuildCard () {

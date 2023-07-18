@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import '../styles/App.css'
 import CardListItem from './CardListItem'
 import { Table, TableBody } from 'semantic-ui-react'
@@ -12,10 +12,12 @@ function CardList ({ cards }) {
             <h2>Card List</h2>
             <Table celled padded inverted>
                 <Table.Header>
-                    <Table.HeaderCell>Card ID</Table.HeaderCell>
-                    <Table.HeaderCell>Card Name</Table.HeaderCell>
-                    <Table.HeaderCell>Card Cost</Table.HeaderCell>
-                    <Table.HeaderCell>Card Text</Table.HeaderCell>
+                    <Table.Row>
+                        <Table.HeaderCell>Card ID</Table.HeaderCell>
+                        <Table.HeaderCell>Card Name</Table.HeaderCell>
+                        <Table.HeaderCell>Card Cost</Table.HeaderCell>
+                        <Table.HeaderCell>Card Text</Table.HeaderCell>
+                    </Table.Row>
                 </Table.Header>
                 <TableBody>
                     {displayCards}
