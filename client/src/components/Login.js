@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import { Modal, Button, Header, Input, Form } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
 import { useRecoilState, useSetRecoilState } from 'recoil'
-import { loggedInAtom } from './lib/atoms'
-import { activeAccountAtom } from './lib/atoms'
+import { loggedInAtom, activeAccountAtom  } from './lib/atoms'
 
 function Login () {  
 

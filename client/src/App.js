@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Nav from './components/Nav'
 import Login from './components/Login'
 import Discover from './components/Discover';
@@ -9,9 +9,26 @@ import Signup from './components/Signup';
 import Account from './components/Account';
 import BrowseDecks from './components/BrowseDecks';
 import { Switch, Route } from 'react-router-dom'
+import { useSetRecoilState } from 'recoil'
+import { loggedInAtom, activeAccountAtom } from './components/lib/atoms';
 
 
-function App() { 
+function App() {
+
+  const setLoggedIn = useSetRecoilState(loggedInAtom)
+  const setActiveAccount = useSetRecoilState(activeAccountAtom)
+
+  useEffect(() => {
+    fetch('/checksession')
+    .then(resp => {
+      if (resp.ok) {
+        resp.json().then(data => {
+          setLoggedIn(true)
+          setActiveAccount(data)
+        })
+      }
+    })
+  }, [])
 
   return (
     <div className='siteContainer'>

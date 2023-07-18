@@ -23,7 +23,7 @@ class Login(Resource):
             return make_response(user.to_dict(), 200)
         
         except:
-            return make_response( {'error': '401 user not found'}, 404)
+            return make_response( {'error': '404 user not found'}, 404)
         
 class Logout(Resource):
     def delete(self):
@@ -33,6 +33,10 @@ class Logout(Resource):
 class CheckSession(Resource):
     def get(self):
         user = User.query.filter(User.id == session.get('user_id')).first()
+        if user:
+            return make_response(user.to_dict(), 200)
+        else:
+            return make_response({'error': '404 user not found'}, 404)
 
 class Users(Resource):
 
@@ -136,6 +140,7 @@ api.add_resource(Users, '/users')
 api.add_resource(UsersById, '/users/<int:id>')
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
+api.add_resource(CheckSession, '/checksession')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
